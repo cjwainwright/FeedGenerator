@@ -50,10 +50,14 @@ Further attributes can them be specified on the element to provide information a
 
 So for example you may have something like
 
-    <div data-feed-id="mythoughtsonthenatureofexistence" data-feed-title="My thoughts on the nature of existence" data-feed-date="10 Apr 2010">
-        It seems that the physical world is merely a view on the underlying logic that determines it. Should the whole of existence be reducible to a mere mathematical
-        equation, is the existence of this equation not equivalent to the physical world it predicts. Were another equation to be writ (or imagined, or merely possible),
-        are not all the consequences of it's logic enough to say that it is another world perhaps containing entities with the power of mind to come to similar conclusions.
+    <div data-feed-id="mythoughtsonthenatureofexistence" 
+         data-feed-title="My thoughts on the nature of existence" 
+         data-feed-date="10 Apr 2010">
+        It seems that the physical world is merely a view on the underlying logic that determines it. Should the 
+        whole of existence be reducible to a mere mathematical equation, is the existence of this equation not 
+        equivalent to the physical world it predicts? Were another equation to be writ (or imagined, or merely 
+        possible), are not all the consequences of it's logic enough to say that it is another world perhaps 
+        containing entities with the power of mind to come to similar conclusions.
     </div>
 
 When the FeedGenerator discovers this element it will create a feed item and use this element as the feed items description (i.e. content).
