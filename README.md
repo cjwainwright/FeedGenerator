@@ -11,7 +11,7 @@ Usage
 
 An example of how to use FeedGenerator is included in GenerateRSSExample.php
 
-    <?php
+```php
     include_once("FeedGenerator.class.php");
 
     $generator = new FeedGenerator();
@@ -24,7 +24,7 @@ An example of how to use FeedGenerator is included in GenerateRSSExample.php
     $generator->save("rss.xml");
 
     echo '<a href="rss.xml"/>RSS</a>';
-    ?>
+```
 
 On the first line we reference the main FeedGenerator.class.php. 
 
@@ -50,6 +50,7 @@ Further attributes can them be specified on the element to provide information a
 
 So for example you may have something like
 
+```html
     <div data-feed-id="mythoughtsonthenatureofexistence" 
          data-feed-title="My thoughts on the nature of existence" 
          data-feed-date="10 Apr 2010">
@@ -59,5 +60,6 @@ So for example you may have something like
         possible), are not all the consequences of it's logic enough to say that it is another world perhaps 
         containing entities with the power of mind to come to similar conclusions.
     </div>
+```
 
 When the FeedGenerator discovers this element it will create a feed item and use this element as the feed items description (i.e. content).
