@@ -22,7 +22,8 @@ class FeedCrawler extends PHPCrawler
     
     function handleDocumentInfo(PHPCrawlerDocumentInfo $PageInfo)
     {
-        if($PageInfo->http_status_code == 200)
+        if(($PageInfo->http_status_code == 200) &&
+           ($PageInfo->content))
         {
             $doc = new DOMDocument();
             $doc->loadHTML($PageInfo->content);
