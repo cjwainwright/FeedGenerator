@@ -25,6 +25,7 @@ class FeedCrawler extends PHPCrawler
         if(($PageInfo->http_status_code == 200) &&
            ($PageInfo->content))
         {
+            $this->generator->log('Loaded: ' . $PageInfo->url);
             $doc = new DOMDocument();
             $doc->loadHTML($PageInfo->content);
             

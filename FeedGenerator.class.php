@@ -37,6 +37,7 @@ class FeedGenerator
 
     function __construct()
     {
+        $this->logger = function(){};
         $this->crawler = new FeedCrawler($this);
         $this->itemCache = array();
     }
@@ -66,11 +67,18 @@ class FeedGenerator
     {
         $this->itemCount = $itemCount;
     }
+    
+    public function setLogger($logger)
+    {
+        $this->logger = $logger;
+    }
         
     public function go()
     {
+        $this->log('Beginning crawl');
         $this->crawler->go();
         $this->buildRssDocument();
+        $this->log('Done');
     }
     
     public function writeResponse()
@@ -93,12 +101,15 @@ class FeedGenerator
         }
         
         //TODO - check existing items in cache and use most specific URL
+        $this->log('Caching feed item: ' . $id);
         $this->itemCache[$id] = new FeedItem($element);
     }
         
     private function buildRssDocument()
     {
         // build outer Rss document framework
+        $this->log('Building RSS document');
+
         $docRss = new DOMDocument();
         $nodeRss = $docRss->appendChild($docRss->createElement('rss'));
         $nodeRss->setAttribute('version', '2.0');
@@ -127,6 +138,7 @@ class FeedGenerator
             return ($a->date < $b->date) ? 1 : -1;
         }
         
+        $this->log('Sorting items');
         uasort($this->itemCache, 'cmp');
         
         // loop items to max count adding them to the channel
@@ -137,6 +149,7 @@ class FeedGenerator
             $count += 1;
             if($count >= $this->itemCount)
             {
+                $this->log('Reached maximum count ' . $count);
                 break;
             }
         }
@@ -144,6 +157,8 @@ class FeedGenerator
     
     private function createRssItem(FeedItem $item)
     {
+        $this->log('Creating item: ' . $item->title);
+
         $docRss = $this->docRss;
         $nodeChannel = $this->nodeChannel;
         
@@ -161,6 +176,12 @@ class FeedGenerator
 
         $nodeDescription = $nodeItem->appendChild($docRss->createElement('description'));
 		$nodeDescription->appendChild($docRss->createTextNode($item->description));
+    }
+    
+    public function log($message)
+    {
+        $logger = $this->logger;
+        $logger($message);
     }
 }
 
